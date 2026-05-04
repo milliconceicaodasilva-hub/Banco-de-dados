@@ -1,0 +1,362 @@
+tHub
+Conversa com o Gemini
+me fala um codigo para eu adicionar no github
+
+Para escolher o que subir no GitHub, o segredo é mostrar que você resolve problemas reais ou que domina uma tecnologia específica. Se você está começando, recomendo criar um projeto de automação ou um utilitário de sistema, pois eles demonstram lógica clara.
+
+Aqui estão três opções de níveis diferentes para você copiar, adaptar e subir:
+
+1. Nível Iniciante: Web Scraper de Preços (Python)
+Esse código é excelente para mostrar que você sabe manipular dados da web. Ele entra em um site, pega o preço de um produto e salva em um arquivo.
+
+Python
+import requests
+from bs4 import BeautifulSoup
+
+def consultar_preco(url):
+    headers = {"User-Agent": "Mozilla/5.0"}
+    site = requests.get(url, headers=headers)
+    soup = BeautifulSoup(site.content, 'html.parser')
+    
+    # Exemplo genérico: ajuste o seletor para o site desejado
+    titulo = soup.find('h1').get_text().strip()
+    preco = soup.find('span', class_='a-offscreen').get_text().strip()
+    
+    print(f"Produto: {titulo} - Preço: {preco}")
+
+# Substitua pela URL de um produto real
+consultar_preco("https://www.exemplo.com/produto-legal")
+2. Nível Intermediário: Gerador de QR Code (Python)
+Projetos utilitários são muito bem vistos. Este script transforma qualquer link em um QR Code pronto para uso.
+
+Python
+import qrcode
+
+def gerar_qr(link, nome_arquivo):
+    qr = qrcode.QRCode(version=1, box_size=10, border=5)
+    qr.add_data(link)
+    qr.make(fit=True)
+    
+    img = qr.make_image(fill_color="black", back_color="white")
+    img.save(f"{nome_arquivo}.png")
+    print(f"QR Code salvo como {nome_arquivo}.png")
+
+gerar_qr("https://github.com/seu-usuario", "meu_github")
+3. Nível "Organizador": Script de Limpeza de Pastas
+Esse é um dos favoritos para iniciantes, pois resolve um problema do dia a dia: organizar a pasta de "Downloads" automaticamente por extensão.
+
+Python
+import os
+import shutil
+
+caminho = "C:/Users/SeuUsuario/Downloads"
+formatos = {
+    "Imagens": [".jpg", ".png", ".jpeg"],
+    "Documentos": [".pdf", ".docx", ".txt"],
+    "Executaveis": [".exe", ".msi"]
+}
+
+for arquivo in os.listdir(caminho):
+    nome, extensao = os.path.splitext(arquivo)
+    for pasta, extensoes in formatos.items():
+        if extensao in extensoes:
+            if not os.path.exists(f"{caminho}/{pasta}"):
+                os.makedirs(f"{caminho}/{pasta}")
+            shutil.move(f"{caminho}/{arquivo}", f"{caminho}/{pasta}/{arquivo}")
+Dicas de Ouro para o seu GitHub:
+O arquivo README.md é tudo: Não suba apenas o código. Escreva um arquivo explicando o que o código faz, como instalar as bibliotecas (como pip install requests) e como rodar.
+
+Use o .gitignore: Se estiver usando Python, adicione um arquivo .gitignore para não subir pastas inúteis como __pycache__ ou ambientes virtuais (venv).
+
+Dê nomes claros aos commits: Em vez de "update", use "Adiciona função de gerar imagem" ou "Refatora lógica de busca".
+
+Qual dessas áreas te interessa mais (Web, Dados ou Automação)? Posso te ajudar a personalizar o código!
+
+Faça um codigo pra mim de um site de roupas femininas para eu jogar no github
+
+Para o GitHub, o ideal é criar um projeto que use HTML5, CSS3 (Flexbox/Grid) e um pouco de JavaScript. Isso demonstra que você entende de design responsivo e interatividade.
+
+Abaixo, preparei uma estrutura de um e-commerce de moda feminina com um visual moderno e "clean".
+
+1. O HTML (index.html)
+Este arquivo define a estrutura: menu, banner principal e a grade de produtos.
+
+HTML
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sua Loja | Moda Feminina</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">MODA<span>FEMININA</span></div>
+            <ul class="nav-links">
+                <li><a href="#">Início</a></li>
+                <li><a href="#">Coleções</a></li>
+                <li><a href="#">Sale</a></li>
+                <li><a href="#">Contato</a></li>
+            </ul>
+            <div class="icons">
+                <i data-lucide="search"></i>
+                <i data-lucide="shopping-bag"></i>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Nova Coleção Outono/Inverno</h1>
+            <p>Descubra as tendências que vão dominar a estação.</p>
+            <a href="#produtos" class="btn">Ver Novidades</a>
+        </div>
+    </section>
+
+    <main id="produtos" class="container">
+        <h2 class="section-title">Nossos Destaques</h2>
+        <div class="product-grid">
+            <!-- Produto 1 -->
+            <div class="product-card">
+                <div class="badge">Novo</div>
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=400" alt="Roupa">
+                <h3>Vestido Midi Floral</h3>
+                <p class="price">R$ 189,90</p>
+                <button class="add-cart">Adicionar ao Carrinho</button>
+            </div>
+            <!-- Produto 2 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?auto=format&fit=crop&q=80&w=400" alt="Roupa">
+                <h3>Blazer Elegance Off-White</h3>
+                <p class="price">R$ 259,00</p>
+                <button class="add-cart">Adicionar ao Carrinho</button>
+            </div>
+            <!-- Produto 3 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1539109132314-34a75adad142?auto=format&fit=crop&q=80&w=400" alt="Roupa">
+                <h3>Sobretudo Minimalista</h3>
+                <p class="price">R$ 420,00</p>
+                <button class="add-cart">Adicionar ao Carrinho</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Sua Loja de Moda. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+      lucide.createIcons();
+    </script>
+</body>
+</html>
+2. O CSS (style.css)
+Este código deixa o site elegante, com fontes bonitas e responsivo (funciona no celular).
+
+CSS
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body { background-color: #fcfcfc; color: #333; }
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.logo { font-weight: bold; letter-spacing: 2px; font-size: 1.5rem; }
+.logo span { color: #d4a373; }
+
+.nav-links { list-style: none; display: flex; gap: 30px; }
+.nav-links a { text-decoration: none; color: #333; font-weight: 500; transition: 0.3s; }
+.nav-links a:hover { color: #d4a373; }
+
+.hero {
+    height: 60vh;
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                url('https://images.unsplash.com/photo-1490481651871-ab68ec25d43d?auto=format&fit=crop&q=80&w=1200');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.hero h1 { font-size: 3rem; margin-bottom: 10px; }
+
+.btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 30px;
+    background: #d4a373;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.container { padding: 50px 5%; }
+.section-title { text-align: center; margin-bottom: 40px; font-weight: 300; font-size: 2rem; }
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: white;
+    padding: 15px;
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s;
+}
+
+.product-card:hover { transform: translateY(-5px); }
+
+.product-card img { width: 100%; border-radius: 5px; margin-bottom: 15px; }
+
+.badge {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    background: #333;
+    color: white;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+}
+
+.price { color: #d4a373; font-weight: bold; margin: 10px 0; }
+
+.add-cart {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #333;
+    background: transparent;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.add-cart:hover { background: #333; color: white; }
+
+footer { text-align: center; padding: 40px; background: #eee; margin-top: 50px; }
+O que fazer para o GitHub brilhar:
+Crie um Repositório: Chame de algo como fashion-store-frontend.
+
+Habilite o GitHub Pages: Vá nas configurações do repositório (Settings > Pages) e coloque a fonte como a main branch. O GitHub vai te dar um link e seu site ficará online de verdade.
+
+No README.md:
+
+Coloque um print da tela do site.
+
+Diga que usou HTML5, CSS3 e Lucide Icons.
+
+Coloque o link do site pronto (que você gerou no passo 2).
+
+Você quer que eu adicione alguma função específica, como um botão que abre o carrinho ou uma galeria de fotos?
+
+Faça agora um codigo de um site de vendas de material escolar
+
+Para um site de material escolar, o visual pede algo mais colorido, organizado e funcional. Vou focar em uma estrutura que destaque categorias (mochilas, cadernos, escrita) e use um sistema de "carrinho" simples com JavaScript para que o site não seja apenas estático.
+
+Aqui está o trio de arquivos para o seu repositório:
+
+1. O HTML (index.html)
+Neste arquivo, incluí uma seção de busca e uma vitrine com categorias lúdicas.
+
+HTML
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papelaria Criativa | Volta às Aulas</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <header>
+        <div class="top-bar">Frete grátis em compras acima de R$ 150!</div>
+        <nav class="navbar">
+            <div class="logo">✏️ Papelaria<span>Nota10</span></div>
+            <div class="search-box">
+                <input type="text" placeholder="O que você está procurando?">
+                <i data-lucide="search"></i>
+            </div>
+            <div class="cart-info">
+                <i data-lucide="shopping-cart"></i>
+                <span id="cart-count">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="banner">
+        <div class="banner-text">
+            <h2>Tudo pronto para o Volta às Aulas? 📚</h2>
+            <p>Os melhores materiais com os menores preços do mercado.</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="categories">
+            <button class="cat-btn active">Todos</button>
+            <button class="cat-btn">Escrita</button>
+            <button class="cat-btn">Cadernos</button>
+            <button class="cat-btn">Mochilas</button>
+        </div>
+
+        <div class="products-container">
+            <!-- Produto 1 -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1583485088034-7160b52ad572?auto=format&fit=crop&q=80&w=400" alt="Canetas">
+                <div class="info">
+                    <span class="tag">Escrita</span>
+                    <h3>Kit Canetas Gel Pastel - 12 Cores</h3>
+                    <p class="price">R$ 45,90</p>
+                    <button class="buy-btn" onclick="addToCart()">Comprar</button>
+                </div>
+            </div>
+
+            <!-- Produto 2 -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1531346878377-a5be20888e57?auto=format&fit=crop&q=80&w=400" alt="Caderno">
+                <div class="info">
+                    <span class="tag">Cadernos</span>
+                    <h3>Caderno Inteligente A5</h3>
+                    <p class="price">R$ 89,00</p>
+                    <button class="buy-btn" onclick="addToCart()">Comprar</button>
+                </div>
+            </div>
+
+            <!-- Produto 3 -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&q=80&w=400" alt="Mochila">
+                <div class="info">
+                    <span class="tag">Mochilas</span>
+                    <h3>Mochila Ergonômica Azul</h3>
+                    <p class="price">R$ 159,00</p>
+                    <button class="buy-btn" onclick="addToCart()">Comprar</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
