@@ -1,0 +1,16 @@
+import requests
+from bs4 import BeautifulSoup
+
+def consultar_preco(url):
+    headers = {"User-Agent": "Mozilla/5.0"}
+    site = requests.get(url, headers=headers)
+    soup = BeautifulSoup(site.content, 'html.parser')
+    
+    # Exemplo genérico: ajuste o seletor para o site desejado
+    titulo = soup.find('h1').get_text().strip()
+    preco = soup.find('span', class_='a-offscreen').get_text().strip()
+    
+    print(f"Produto: {titulo} - Preço: {preco}")
+
+# Substitua pela URL de um produto real
+consultar_preco("https://www.exemplo.com/produto-legal")
