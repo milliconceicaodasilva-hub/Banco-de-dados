@@ -1,0 +1,51 @@
+CREATE DATABASE loja_db;
+
+USE loja_db;
+
+CREATE TABLE clientes (
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    telefone VARCHAR(20),
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE produtos (
+    id_produto INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    preco DECIMAL(10,2) NOT NULL,
+    estoque INT DEFAULT 0
+);
+
+CREATE TABLE pedidos (
+    id_pedido INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT,
+    data_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(50) DEFAULT 'Pendente',
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
+);
+
+CREATE TABLE itens_pedido (
+    id_item INT AUTO_INCREMENT PRIMARY KEY,
+    id_pedido INT,
+    id_produto INT,
+    quantidade INT NOT NULL,
+    preco_unitario DECIMAL(10,2),
+    FOREIGN KEY (id_pedido) REFERENCES pedidos(id_pedido),
+    FOREIGN KEY (id_produto) REFERENCES produtos(id_produto)
+);
+
+INSERT INTO clientes (nome, email, telefone) VALUES
+('João Silva', 'joao@email.com', '11999999999'),
+('Maria Souza', 'maria@email.com', '11888888888');
+
+INSERT INTO produtos (nome, descricao, preco, estoque) VALUES
+('Notebook', 'Notebook gamer', 4500.00, 10),
+('Mouse', 'Mouse sem fio', 150.00, 50);
+
+INSERT INTO pedidos (id_cliente) VALUES (1);
+
+INSERT INTO itens_pedido (id_pedido, id_produto, quantidade, preco_unitario) VALUES
+(1, 1, 1, 4500.00),
+(1, 2, 2, 150.00);
